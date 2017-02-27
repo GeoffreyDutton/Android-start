@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/black_26" android:state_pressed="true"/>
-    <item android:drawable="@android:color/transparent" />
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="ring">
+        <item android:drawable="@color/black_26" android:state_pressed="true"/>
+    </shape>
+    <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+        <gradient
+            android:startColor="#FFFF0000"
+            android:endColor="#80FF00FF"
+            android:angle="45"/>
+        <padding android:left="7dp"
+            android:top="7dp"
+            android:right="7dp"
+            android:bottom="7dp" />
+        <corners android:radius="8dp" />
+        <item android:drawable="@android:color/transparent"  />
+
+    </shape>
 </selector>
