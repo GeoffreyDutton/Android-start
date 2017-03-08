@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         return BloclyApplication.getSharedDataSource().getItems().size();
     }
 
-    class ItemAdapterViewHolder extends RecyclerView.ViewHolder implements ImageLoadingListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    class ItemAdapterViewHolder extends RecyclerView.ViewHolder implements ImageLoadingListener,
+            View.OnClickListener, CompoundButton.OnCheckedChangeListener {boolean contentExpanded;
         TextView title;
         TextView feed;
         TextView content;
@@ -54,6 +56,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         ImageView headerImage;
         CheckBox archiveCheckbox;
         CheckBox favoriteCheckbox;
+        View expandedContentWrapper;
+        TextView expandedContent;
+        TextView visitSite;
         RssItem rssItem;
 
         public ItemAdapterViewHolder(View itemView){
@@ -65,9 +70,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
             headerImage = (ImageView) headerWrapper.findViewById(R.id.iv_rss_item_image);
             archiveCheckbox = (CheckBox) itemView.findViewById(R.id.cb_rss_item_check_mark);
             favoriteCheckbox = (CheckBox) itemView.findViewById(R.id.cb_rss_item_favorite_star);
+            expandedContentWrapper = itemView.findViewById(R.id.ll_rss_item_expanded_content_wrapper);
+            expandedContent = (TextView) expandedContentWrapper.findViewById(R.id.tv_rss_item_visit_site);
+            visitSite = (TextView) expandedContentWrapper.findViewById(R.id.tv_rss_item_visit_site);
 
             itemView.setOnClickListener(this);
-
+            visitSite.setOnClickListener(this);
             archiveCheckbox.setOnCheckedChangeListener(this);
             favoriteCheckbox.setOnCheckedChangeListener(this);
         }
@@ -77,6 +85,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
             feed.setText(rssFeed.getTitle());
             title.setText(rssItem.getTitle());
             content.setText(rssItem.getDescription());
+            expandedContent.setText(rssItem.getDescription());
 
             if (rssItem.getImageUrl() != null){
                 headerWrapper.setVisibility(View.VISIBLE);
@@ -110,7 +119,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         
         @Override
         public void onClick(View view){
-            Toast.makeText(view.getContext(), rssItem.getTitle(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), rssItem.getTitle(), Toast.LENGTH_SHORT).show();
+            if (view == itemView){
+                contentExpanded = !contentExpanded;
+                expandedContentWrapper.setVisibility(contentExpanded ? View.VISIBLE:View.GONE);
+                content.setVisibility(contentExpanded ? View.GONE : View.VISIBLE);
+            }else {
+                Toast.makeText(view.getContext(), "Visit " + rssItem.getUrl(), Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
