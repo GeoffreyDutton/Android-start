@@ -41,6 +41,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
 
     public static interface Delegate{
         public void onItemClicked(ItemAdapter itemAdapter, RssItem rssItem);
+        public void onVisitClicked(ItemAdapter itemAdapter, RssItem rssItem);
     }
 
     private static String TAG = ItemAdapter.class.getSimpleName();
@@ -199,7 +200,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
                     getDelegate().onItemClicked(ItemAdapter.this, rssItem);
                 }
             }else {
-                Toast.makeText(view.getContext(), "Visit " + rssItem.getUrl(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Visit " + rssItem.getUrl(), Toast.LENGTH_SHORT).show();
+                if(getDelegate() != null){
+                    getDelegate().onVisitClicked(ItemAdapter.this, rssItem);
+                }
             }
         }
 
