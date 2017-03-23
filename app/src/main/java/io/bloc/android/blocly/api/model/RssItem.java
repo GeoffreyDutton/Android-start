@@ -4,7 +4,7 @@ package io.bloc.android.blocly.api.model;
  * Created by Geoff on 2/15/2017.
  */
 
-public class RssItem {
+public class RssItem extends Model {
     private String guid;
     private String title;
     private String description;
@@ -16,8 +16,9 @@ public class RssItem {
     private boolean favorite;
     private boolean archived;
 
-    public RssItem(String guid, String title, String description, String url, String imageUrl,
+    public RssItem(long rowID,String guid, String title, String description, String url, String imageUrl,
                    long rssFeedId, long datePublished, boolean read, boolean favorite, boolean archived) {
+        super(rowID);
         this.guid = guid;
         this.title = title;
         this.description = description;

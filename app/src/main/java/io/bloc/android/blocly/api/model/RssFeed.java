@@ -4,14 +4,14 @@ package io.bloc.android.blocly.api.model;
  * Created by Geoff on 2/15/2017.
  */
 
-public class RssFeed {
+public class RssFeed extends Model {
     private String title;
     private String description;
     private String siteUrl;
     private String feedUrl;
 
-    public RssFeed(String title, String description, String siteUrl, String feedUrl) {
-
+    public RssFeed(long rowId, String title, String description, String siteUrl, String feedUrl) {
+        super(rowId);
         this.title = title;
         this.description = description;
         this.siteUrl = siteUrl;
