@@ -133,7 +133,8 @@ public class DataSource {
                     }
                 });
             }
-
+        });
+    }
 
             public void fetchItemsForFeed(final RssFeed rssFeed, final Callback<List<RssItem>> callback) {
                 final Handler callbackThreadHandler = new Handler();
@@ -159,8 +160,7 @@ public class DataSource {
                     }
                 });
             }
-        });
-    }
+
 
     static RssFeed feedFromCursor(Cursor cursor){
         return new RssFeed(Table.getRowID(cursor),RssFeedTable.getTitle(cursor), RssFeedTable.getDescription(cursor),
